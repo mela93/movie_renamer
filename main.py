@@ -3,6 +3,7 @@ import os
 
 dir_path = "F:/temp/"
 
+
 # 获取无用词
 def get_stop_words():
     file_object = open("data/badwords.txt")
@@ -28,7 +29,7 @@ def rename_file(old, new):
     new_path = dir_path + new
     # 检查文件是否存在
     if not os.path.isfile(old_path):
-        print ("%s not exist!"%(old_path))
+        print("%s not exist!" % (old_path))
     else:
         os.rename(old_path, new_path)
         # 输出结果方便检查
@@ -64,7 +65,7 @@ def load_data():
             for w in stop_words:
                 i = i.upper().replace(w.upper(), '')
             # 把 00 替换 -
-            number = re.findall("\d+",i)
+            number = re.findall("\d+", i)
             # 如果是00123的换成-123
             if len(number[0]) > 4:
                 i = i.replace("00", '-')
@@ -76,15 +77,15 @@ def load_data():
             suffix = suffix.lower()
             i = i + suffix
             # 处理带C的情况
-            i = i.replace("C"+suffix, '-C'+suffix)
+            i = i.replace("C" + suffix, '-C' + suffix)
             i = i.replace("_CH", '-C')
-            # 重命名文件
-            rename_file(o, i)
             # 暂停确认文件名是否有误
             if index % 5 == 0:
                 c = input('确认继续?')
                 if c == '':
                     print(111)
+                    # 重命名文件
+                    rename_file(o, i)
                 else:
                     exit()
 
