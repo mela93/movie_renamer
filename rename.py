@@ -1,7 +1,8 @@
 import re
 import os
+import time
 
-dir_path = "F:/temp/"
+dir_path = "F:/temp/output"
 
 
 # 获取无用词
@@ -29,7 +30,7 @@ def rename_file(old, new):
     new_path = dir_path + new
     # 检查文件是否存在
     if not os.path.isfile(old_path):
-        print("%s not exist!" % (old_path))
+        print("%s not exist!" % old_path)
     else:
         os.rename(old_path, new_path)
         # 输出结果方便检查
@@ -38,9 +39,10 @@ def rename_file(old, new):
 
 def load_data():
     index = 0
+    t = str(time.time())
     print('加载数据中...')
     stop_words = get_stop_words()  # 加载停用词表
-
+    # filenames = open("data/dev.txt")
     for dirpath, dirnames, filenames in os.walk(dir_path):
         for i in filenames:
             # 如果是文件就跳过
@@ -54,9 +56,6 @@ def load_data():
             i = i.split(" ")[0]
             # 获取后缀名
             suffix = '.' + p[-1]
-            # 如果py文件和待处理文件在同目录略过py文件
-            if suffix == '.py':
-                continue
             # 移除后缀 方便后续处理
             i = i.replace(suffix, '')
             # 分离其他内容
@@ -74,18 +73,22 @@ def load_data():
             i = add_dash(i, 3)
             i = add_dash(i, 4)
             # 拼接后缀
+            with open("result/list" + t + ".txt", mode='a') as f:
+                f.write(i)
             suffix = suffix.lower()
             i = i + suffix
             # 处理带C的情况
             i = i.replace("C" + suffix, '-C' + suffix)
             i = i.replace("_CH", '-C')
+            # 重命名文件
+            rename_file(o, i)
+            with open("result/logs" + t + ".txt", mode='a') as f:
+                f.write("%s ---> %s" % (o.strip(), i))
             # 暂停确认文件名是否有误
             if index % 5 == 0:
                 c = input('确认继续?')
                 if c == '':
                     print(111)
-                    # 重命名文件
-                    rename_file(o, i)
                 else:
                     exit()
 
