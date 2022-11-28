@@ -2,7 +2,7 @@ import re
 import os
 import time
 
-dir_path = "F:/temp/output"
+dir_path = "F:/temp/output/"
 
 
 # 获取无用词
@@ -93,5 +93,8 @@ def load_data():
                     exit()
 
 
-if __name__ == '__main__':
+def main():
     load_data()
+
+
+main()

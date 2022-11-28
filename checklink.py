@@ -48,6 +48,7 @@ def load_data():
     print(stop_words)
     finals = {}
     lists = []
+    count = {}
     for l in links:
         p = l.split("=")[2]
         # 分离其他内容
@@ -57,8 +58,15 @@ def load_data():
             p = p.upper().replace(w.upper(), '')
         # 把 00 替换 -
         number = re.findall("\d+", p)
-        # 如果是00123的换成-123
 
+        english = re.findall("[A-Z]", p)
+        e_name = ''.join(str(i) for i in english)
+        if e_name not in count:
+            count[e_name] = 1
+        else:
+            count[e_name] += 1
+
+        # 如果是00123的换成-123
         if len(number[0]) > 4:
             p = p.replace("00", '-')
         # 给没有-分隔的添加分隔
@@ -70,6 +78,9 @@ def load_data():
         # print(p)
         if p not in items:
             finals[p] = l
+        else:
+            print(l)
+    print(count)
     for i in sorted(finals):
         lists.append(finals[i])
     with open("result/download.txt", mode='a') as f:
