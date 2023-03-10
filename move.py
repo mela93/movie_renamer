@@ -1,8 +1,8 @@
 import os
 import shutil
 
-dir_path = 'F:/temp/output/'
-dstpath = 'F:/temp/output/'
+dir_path = 'E:/temp/output/'
+dstpath = 'E:/temp/output/'
 
 
 def get_big_file(path):

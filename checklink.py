@@ -22,7 +22,7 @@ def get_links():
 
 
 def get_items():
-    file_object = open("data/metadata_items.txt")
+    file_object = open("data/metadata_items.txt", encoding="utf-8")
     items = []
     for line in file_object.readlines():
         line = line[:-1]
@@ -58,7 +58,6 @@ def load_data():
             p = p.upper().replace(w.upper(), '')
         # 把 00 替换 -
         number = re.findall("\d+", p)
-
         english = re.findall("[A-Z]", p)
         e_name = ''.join(str(i) for i in english)
         if e_name not in count:

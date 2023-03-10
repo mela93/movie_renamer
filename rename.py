@@ -2,7 +2,7 @@ import re
 import os
 import time
 
-dir_path = "F:/temp/output/"
+dir_path = "E:/temp/output/"
 
 
 # 获取无用词
@@ -72,18 +72,20 @@ def load_data():
             i = add_dash(i, 2)
             i = add_dash(i, 3)
             i = add_dash(i, 4)
+            i = add_dash(i, 5)
             # 拼接后缀
             with open("result/list" + t + ".txt", mode='a') as f:
-                f.write(i)
+                f.write(i + '\n')
             suffix = suffix.lower()
             i = i + suffix
             # 处理带C的情况
             i = i.replace("C" + suffix, '-C' + suffix)
             i = i.replace("_CH", '-C')
+            i = i.replace("--C", '-C')
             # 重命名文件
             rename_file(o, i)
             with open("result/logs" + t + ".txt", mode='a') as f:
-                f.write("%s ---> %s" % (o.strip(), i))
+                f.write("%s ---> %s \n" % (o.strip(), i))
             # 暂停确认文件名是否有误
             if index % 5 == 0:
                 c = input('确认继续?')

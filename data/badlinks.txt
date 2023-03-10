@@ -4,3 +4,7 @@ _
 -C  
 .mp4  
 [javdb.com]  
+_FCH  
+_CH.HD  
+.HD  
+-HD  
